@@ -18,7 +18,7 @@ public final class Plateau implements Serializable {
     }
 
     public static Plateau of(Coordinate coordinate) {
-        checkNotNull(coordinate, "Coordenada nao pode ser nulo");
+        checkNotNull(coordinate, "Coordenada invalida");
 
         return new Plateau(coordinate);
     }
