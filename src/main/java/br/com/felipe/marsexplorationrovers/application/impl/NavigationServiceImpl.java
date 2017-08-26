@@ -14,14 +14,16 @@ import java.util.stream.Collectors;
 public class NavigationServiceImpl implements NavigationService {
 
     @Override
-    public List<ProbeRepresetation> navigate(NavigationRepresetation navigationRepresetation) {
+    public NavigationRepresetation create(NavigationRepresetation navigationRepresetation) {
         Plateau plateau = navigationRepresetation.getPlateauRepresetation().toPlateau();
 
-        return navigationRepresetation.getProbesRepresetations()
-                                      .stream()
-                                      .map(pr -> Navigation.of(plateau, pr.toProbe()).navigate(pr.getCommands()))
-                                      .map(Navigation::getProbe)
-                                      .map(ProbeRepresetation::from)
-                                      .collect(Collectors.toList());
+        List<ProbeRepresetation> probesRepresetations = navigationRepresetation.getProbesRepresetations()
+                                                                               .stream()
+                                                                               .map(pr -> Navigation.of(plateau, pr.toProbe()).navigate(pr.getCommands()))
+                                                                               .map(Navigation::getProbe)
+                                                                               .map(ProbeRepresetation::from)
+                                                                               .collect(Collectors.toList());
+
+        return navigationRepresetation.withProbesRepresetations(probesRepresetations);
     }
 }

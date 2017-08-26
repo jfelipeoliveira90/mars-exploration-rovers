@@ -8,9 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
-import static org.springframework.http.ResponseEntity.ok;
+import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
 @RequestMapping("/v1/navigations")
@@ -19,8 +17,9 @@ public class NavigationController {
     @Autowired
     private NavigationService service;
 
-    @PostMapping("/navigate")
-    public ResponseEntity<List<ProbeRepresetation>> navigate(@RequestBody NavigationRepresetation navigation) {
-        return ok(service.navigate(navigation));
+    @PostMapping
+    public ResponseEntity<NavigationRepresetation> create(@RequestBody NavigationRepresetation navigation) {
+        return ResponseEntity.status(CREATED)
+                             .body(service.create(navigation));
     }
 }

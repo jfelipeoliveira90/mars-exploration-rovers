@@ -17,6 +17,14 @@ public final class NavigationRepresetation {
     @JsonProperty("probes")
     private List<ProbeRepresetation> probesRepresetations;
 
+    private NavigationRepresetation() {
+    }
+
+    private NavigationRepresetation(PlateauRepresetation plateauRepresetation, List<ProbeRepresetation> probesRepresetations) {
+        this.plateauRepresetation = plateauRepresetation;
+        this.probesRepresetations = probesRepresetations;
+    }
+
     @JsonIgnore
     public PlateauRepresetation getPlateauRepresetation() {
         return plateauRepresetation;
@@ -25,5 +33,9 @@ public final class NavigationRepresetation {
     @JsonIgnore
     public List<ProbeRepresetation> getProbesRepresetations() {
         return probesRepresetations;
+    }
+
+    public NavigationRepresetation withProbesRepresetations(List<ProbeRepresetation> probesRepresetations) {
+        return new NavigationRepresetation(this.plateauRepresetation, probesRepresetations);
     }
 }
