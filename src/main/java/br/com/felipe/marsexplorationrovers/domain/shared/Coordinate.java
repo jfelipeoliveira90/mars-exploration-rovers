@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
-public final class Coordinate implements Serializable {
+public final class Coordinate implements Serializable, Comparable<Coordinate> {
     private static final long serialVersionUID = -5372973857556661162L;
 
     private final int x;
@@ -19,10 +19,18 @@ public final class Coordinate implements Serializable {
     }
 
     public static Coordinate of(int x, int y) {
-        checkArgument(x > 0, "Valor invalido para a coordenada X");
-        checkArgument(y > 0, "Valor invalido para a coordenada Y");
+        checkArgument(x > 0, "Valor invalido para a eixo X");
+        checkArgument(y > 0, "Valor invalido para a eixo Y");
 
         return new Coordinate(x, y);
+    }
+
+    public Coordinate plus(int x, int y) {
+        return of(this.x + x, this.y + y);
+    }
+
+    public Coordinate less(int x, int y) {
+        return of(this.x - x, this.y - y);
     }
 
     @Override
@@ -37,6 +45,16 @@ public final class Coordinate implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hashCode(x, y);
+    }
+
+    @Override
+    public int compareTo(Coordinate that) {
+        if (that == null) {
+            return 1;
+        }
+
+        final int xcomp = Double.compare(this.x, that.x);
+        return xcomp == 0 ? Double.compare(this.y, that.y) : xcomp;
     }
 
     @Override

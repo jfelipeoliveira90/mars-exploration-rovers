@@ -23,6 +23,10 @@ public final class Plateau implements Serializable {
         return new Plateau(coordinate);
     }
 
+    public Coordinate getCoordinate() {
+        return coordinate;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -6,7 +6,7 @@ public enum CardinalPoint {
     EAST("E"),
     WEST("W");
 
-    private String abbreviation;
+    private final String abbreviation;
 
     CardinalPoint(String abbreviation) {
         this.abbreviation = abbreviation;

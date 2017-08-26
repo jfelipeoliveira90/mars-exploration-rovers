@@ -1,10 +1,13 @@
 package br.com.felipe.marsexplorationrovers.domain.model.probe;
 
+import br.com.felipe.marsexplorationrovers.domain.exceptions.CommandException;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 
 import java.io.Serializable;
+import java.util.Optional;
 
+import static br.com.felipe.marsexplorationrovers.domain.model.command.Commands.getCommandMap;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 public final class Probe implements Serializable {
@@ -20,6 +23,18 @@ public final class Probe implements Serializable {
         checkNotNull(position, "Posicao invalida");
 
         return new Probe(position);
+    }
+
+    public Probe changePosition(String command) {
+        Position position = Optional.ofNullable(getCommandMap().get(command))
+                                    .orElseThrow(() -> new CommandException("Instrucao nao implementada"))
+                                    .execute(this.position);
+
+        return of(position);
+    }
+
+    public Position getPosition() {
+        return position;
     }
 
     @Override

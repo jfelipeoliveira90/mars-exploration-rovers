@@ -26,6 +26,22 @@ public final class Position implements Serializable {
         return new Position(coordinate, cardinalPoint);
     }
 
+    public Position withCardinalPoint(CardinalPoint cardinalPoint) {
+        return of(this.coordinate, cardinalPoint);
+    }
+
+    public Position withCoordinate(Coordinate coordinate) {
+        return of(coordinate, this.cardinalPoint);
+    }
+
+    public Coordinate getCoordinate() {
+        return coordinate;
+    }
+
+    public CardinalPoint getCardinalPoint() {
+        return cardinalPoint;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
