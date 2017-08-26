@@ -30,6 +30,10 @@ public final class Navigation implements Serializable {
         return new Navigation(plateau, probe);
     }
 
+    public Probe getProbe() {
+        return probe;
+    }
+
     public Navigation navigate(List<String> commands) {
         Builder builder = new Builder().from(this);
 

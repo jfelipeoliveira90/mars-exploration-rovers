@@ -19,8 +19,8 @@ public final class Coordinate implements Serializable, Comparable<Coordinate> {
     }
 
     public static Coordinate of(int x, int y) {
-        checkArgument(x > 0, "Valor invalido para a eixo X");
-        checkArgument(y > 0, "Valor invalido para a eixo Y");
+        checkArgument(x >= 0, "Valor invalido para a eixo X");
+        checkArgument(y >= 0, "Valor invalido para a eixo Y");
 
         return new Coordinate(x, y);
     }
@@ -31,6 +31,14 @@ public final class Coordinate implements Serializable, Comparable<Coordinate> {
 
     public Coordinate less(int x, int y) {
         return of(this.x - x, this.y - y);
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
     }
 
     @Override
