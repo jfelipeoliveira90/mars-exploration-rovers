@@ -10,6 +10,8 @@ import java.util.List;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
+import static java.util.Collections.emptyList;
+import static java.util.Optional.ofNullable;
 
 public final class Navigation implements Serializable {
     private static final long serialVersionUID = -8848923950089576759L;
@@ -25,7 +27,7 @@ public final class Navigation implements Serializable {
     public static Navigation of(Plateau plateau, Probe probe) {
         checkNotNull(plateau, "Planalto invalido");
         checkNotNull(probe, "Sonda invalida");
-        checkArgument(probe.getPosition().getCoordinate().compareTo(plateau.getCoordinate()) < 0, "Sonda ultrapassou limite do planalto");
+        checkArgument(probe.getPosition().getCoordinate().compareTo(plateau.getCoordinate()) <= 0, "Sonda ultrapassou limite do planalto");
 
         return new Navigation(plateau, probe);
     }
@@ -37,7 +39,8 @@ public final class Navigation implements Serializable {
     public Navigation navigate(List<String> commands) {
         Builder builder = new Builder().from(this);
 
-        commands.forEach(command -> builder.withProbe(builder.probe.changePosition(command)));
+        ofNullable(commands).orElse(emptyList())
+                            .forEach(command -> builder.withProbe(builder.probe.changePosition(command)));
 
         return builder.build();
     }

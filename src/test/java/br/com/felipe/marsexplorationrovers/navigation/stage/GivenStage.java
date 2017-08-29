@@ -1,4 +1,4 @@
-package br.com.felipe.marsexplorationrovers.navigation;
+package br.com.felipe.marsexplorationrovers.navigation.stage;
 
 import br.com.felipe.marsexplorationrovers.domain.model.plateau.Plateau;
 import br.com.felipe.marsexplorationrovers.domain.model.probe.CardinalPoint;
@@ -21,13 +21,26 @@ public class GivenStage extends Stage<GivenStage> {
     @ScenarioState
     private List<String> commands;
 
+    @ScenarioState
+    private RuntimeException exception;
+
     public GivenStage coordinates_of_plateau(int x, int y) {
-        plateau = Plateau.of(Coordinate.of(x, y));
+        try {
+            plateau = Plateau.of(Coordinate.of(x, y));
+        } catch (NullPointerException | IllegalArgumentException e) {
+            exception = e;
+        }
+
         return this;
     }
 
     public GivenStage initial_position_of_probe(int x, int y, String direction) {
-        probe = Probe.of(Position.of(Coordinate.of(x, y), CardinalPoint.valueOf(direction)));
+        try {
+            probe = Probe.of(Position.of(Coordinate.of(x, y), CardinalPoint.valueOf(direction)));
+        } catch (NullPointerException | IllegalArgumentException e) {
+            exception = e;
+        }
+
         return this;
     }
 
