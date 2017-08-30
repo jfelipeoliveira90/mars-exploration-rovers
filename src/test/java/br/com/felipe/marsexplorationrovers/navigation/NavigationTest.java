@@ -37,48 +37,28 @@ public class NavigationTest extends ScenarioTest<GivenStage, WhenStage, ThenStag
     @Test
     @Parameters(method = "parametersFailedToCreateWithPlateauCoordinatesInvalid")
     public void failed_to_create_with_plateau_coordinates_invalid(PlateauTO plateauTO, ProbeTO probeTO, List<String> commands) {
-        given().coordinates_of_plateau(plateauTO.getX(), plateauTO.getY())
-               .and()
-               .initial_position_of_probe(probeTO.getX(), probeTO.getY(), probeTO.getDirection())
-               .and()
-               .list_of_commands(commands);
-
-        when().send_instruction_for_probe();
-
-        then().an_exception_is_thrown();
+        scenarioException(plateauTO, probeTO, commands);
     }
 
     @Test
     @Parameters(method = "parametersFailedToCreateWithProbeCoordinatesInvalid")
     public void failed_to_create_with_probe_coordinates_invalid(PlateauTO plateauTO, ProbeTO probeTO, List<String> commands) {
-        given().coordinates_of_plateau(plateauTO.getX(), plateauTO.getY())
-               .and()
-               .initial_position_of_probe(probeTO.getX(), probeTO.getY(), probeTO.getDirection())
-               .and()
-               .list_of_commands(commands);
-
-        when().send_instruction_for_probe();
-
-        then().an_exception_is_thrown();
+        scenarioException(plateauTO, probeTO, commands);
     }
 
     @Test
     @Parameters(method = "parametersFailedToCreateWithProbeCardinalPointInvalid")
     public void failed_to_create_with_probe_cardinal_point_invalid(PlateauTO plateauTO, ProbeTO probeTO, List<String> commands) {
-        given().coordinates_of_plateau(plateauTO.getX(), plateauTO.getY())
-               .and()
-               .initial_position_of_probe(probeTO.getX(), probeTO.getY(), probeTO.getDirection())
-               .and()
-               .list_of_commands(commands);
-
-        when().send_instruction_for_probe();
-
-        then().an_exception_is_thrown();
+        scenarioException(plateauTO, probeTO, commands);
     }
 
     @Test
     @Parameters(method = "parametersFailedToCreateWithProbeExceedingPlateauBoundary")
     public void failed_to_create_with_probe_exceeding_plateau_boundary(PlateauTO plateauTO, ProbeTO probeTO, List<String> commands) {
+        scenarioException(plateauTO, probeTO, commands);
+    }
+
+    private void scenarioException(PlateauTO plateauTO, ProbeTO probeTO, List<String> commands) {
         given().coordinates_of_plateau(plateauTO.getX(), plateauTO.getY())
                .and()
                .initial_position_of_probe(probeTO.getX(), probeTO.getY(), probeTO.getDirection())
