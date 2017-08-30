@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: mars-exploration-rovers
+server:
+  port: ${SERVER_PORT:8080}
+logging:
+  level:
+    org:
+      springframework: ${LOGGING_LEVEL:debug}

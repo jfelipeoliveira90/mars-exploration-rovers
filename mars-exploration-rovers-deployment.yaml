@@ -1,0 +1,52 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: mars-exploration-rovers-master
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: mars-exploration-rovers-master
+        role: master
+        tier: backend
+    spec:
+      containers:
+      - name: master
+        image: mars-exploration-rovers:1.0.0-SNAPSHOT
+        ports:
+        - containerPort: 8080
+        resources:
+          requests:
+            memory: "750m"
+            cpu: "0.1"
+          limits:
+            memory: "1.5G"
+            cpu: "0.5"
+        readinessProbe:
+          httpGet:
+            scheme: HTTP
+            path: /health
+            port: 8080
+          initialDelaySeconds: 240
+          periodSeconds: 5
+          timeoutSeconds: 5
+          successThreshold: 1
+          failureThreshold: 10
+        livenessProbe:
+          httpGet:
+            scheme: HTTP
+            path: /health
+            port: 8080
+          initialDelaySeconds: 300
+          periodSeconds: 60
+          timeoutSeconds: 10
+          successThreshold: 1
+          failureThreshold: 3
+        env:
+        - name: JAVA_OPTS
+          value: '-Xms512m -Xmx1.5g'
+        - name: SERVER_PORT
+          value: 8080
+        - name: LOGGING_LEVEL
+          value: 'info'
