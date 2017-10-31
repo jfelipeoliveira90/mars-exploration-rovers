@@ -2,12 +2,7 @@
 
 pipeline {
     agent any
-
-    tools {
-        maven 'Maven 3.3.9'
-        jdk 'jdk8'
-    }
-    
+ 
     parameters {
         string(name: 'DOCKER_NAME', defaultValue: 'mars-exploration-rovers', description: 'Nome da imagem docker')
         string(name: 'DOCKER_VERSION', defaultValue: 'latest', description: 'Versao da imagem docker')
@@ -24,7 +19,10 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'mvn clean install'
+                maven {
+                    goals('clean')
+                    goals('install')
+                }
             }
         }
 
