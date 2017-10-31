@@ -19,10 +19,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                maven {
-                    goals('clean')   
-                    goals('install')
-                }
+                sh 'mvn clean install'
             }
         }
 
