@@ -3,6 +3,11 @@
 pipeline {
     agent any
  
+    tools {
+        jdk 'jdk8'
+        maven 'maven3'
+    }
+    
     parameters {
         string(name: 'DOCKER_NAME', defaultValue: 'mars-exploration-rovers', description: 'Nome da imagem docker')
         string(name: 'DOCKER_VERSION', defaultValue: 'latest', description: 'Versao da imagem docker')
